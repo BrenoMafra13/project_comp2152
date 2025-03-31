@@ -1,0 +1,2 @@
+Monster has killed the hero.
+Total monsters killed: 0
