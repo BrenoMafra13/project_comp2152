@@ -1,13 +1,18 @@
-# Import the random library to use for the dice later
 import random
 import os
 
-# Will the line below print when you import functions_lab10.py into main.py?
-# print("Inside functions_lab10.py")
-
+# ------------------ Loot Functions ------------------
 
 def use_loot(belt, health_points, combat_strength):
-    print("    |    !!You see a monster in the distance! So you quickly use your first item:")
+    """
+    Refined loot use: process every item in belt.
+    Health Potion increases HP by 5 (capped at 100).
+    Leather Boots add 3 shield (implemented here as a health bump).
+    Poison Potion decreases HP by 3.
+    Secret Note increases combat strength by 2.
+    Any other item is ineffective.
+    """
+    print("    |    !!You see a monster in the distance! So you quickly use your items:")
     while belt:
         item_used = belt.pop(0)
         if item_used == "Health Potion":
@@ -21,17 +26,19 @@ def use_loot(belt, health_points, combat_strength):
         elif item_used == "Poison Potion":
             decrease_health = 3
             health_points = max(0, health_points - decrease_health)
-            print(f"    |    You used {item_used}, decreasing your health by {decrease_health} points, now your health is {health_points}.")
+            print(f"    |    You used {item_used}, decreasing your health by {decrease_health} to {health_points}.")
         elif item_used == "Secret Note":
             combat_strength += 2
-            print(f"    |    You read the Secret Note and discovered a strategic advantage. Combat strength increased by 2 to {combat_strength}.")
+            print(f"    |    You read the {item_used} and gained a strategic advantage! Combat strength increased by 2 to {combat_strength}.")
         else:
             print(f"    |    You used {item_used}, but it appears to be ineffective.")
-
     return belt, health_points, combat_strength
 
-
 def collect_loot(loot_options, belt):
+    """
+    Presents an ASCII art loot bag and then randomly selects four items.
+    Items are paired and the user chooses one from each pair.
+    """
     ascii_image3 = """
                       @@@ @@                
              *# ,        @              
@@ -52,7 +59,6 @@ def collect_loot(loot_options, belt):
         print("Not enough items to choose from!")
         return loot_options, belt
     selected_items = random.sample(loot_options, 4)
-
     pairs = [(selected_items[i], selected_items[i + 1]) for i in range(0, 4, 2)]
     for idx, (item1, item2) in enumerate(pairs, start=1):
         print(f"\n    |    Pair {idx}: {item1} and {item2}.")
@@ -60,125 +66,132 @@ def collect_loot(loot_options, belt):
         while choice not in ['1', '2']:
             print("\nInvalid input. Please enter '1' or '2'.")
             choice = input(f"Type 1 for {item1} or 2 for {item2}: ")
-
         chosen_item = item1 if choice == '1' else item2
         belt.append(chosen_item)
         loot_options.remove(chosen_item)
-
     print("\n    |    Your belt: ", belt)
     return loot_options, belt
 
+# ------------------ Attack Functions ------------------
 
-# Hero's Attack Function
-def hero_attacks(combat_strength, m_health_points):
+def hero_attacks(combat_strength, m_health_points, lifesteal=0, hero_health=0):
+    """
+    Hero's attack includes a lifesteal effect.
+    Damage is a random integer up to combat_strength.
+    If damage is enough to kill the monster, its health becomes 0.
+    Otherwise, the monster loses a fixed amount (combat_strength).
+    If lifesteal is active, hero heals for damage * lifesteal.
+    Returns updated monster health and hero health.
+    """
     ascii_image = """
-                                 @@   @@ 
-                                 @    @  
-                                 @   @   
-                @@@@@@          @@  @    
-             @@       @@        @ @@     
-            @%         @     @@@ @       
-             @        @@     @@@@@     
-                @@@@@        @@       
-                @    @@@@                
-           @@@ @@                        
-        @@     @                         
-    @@*       @                          
-    @        @@                          
-            @@                                                    
-          @   @@@@@@@                    
-         @            @                  
-       @              @                  
-
-   """
+                                @@   @@ 
+                                @    @  
+                                @   @   
+               @@@@@@          @@  @    
+            @@       @@        @ @@     
+           @%         @     @@@ @       
+            @        @@     @@@@@     
+               @@@@@        @@       
+               @    @@@@                
+          @@@ @@                        
+       @@     @                         
+   @@*       @                          
+   @        @@                          
+           @@                                                    
+         @   @@@@@@@                    
+        @            @                  
+      @              @                  
+    """
     print(ascii_image)
     print("    |    Player's weapon (" + str(combat_strength) + ") ---> Monster (" + str(m_health_points) + ")")
-    if combat_strength >= m_health_points:
-        # Player was strong enough to kill monster in one blow
+    damage = random.randint(1, combat_strength)
+    if damage >= m_health_points:
         m_health_points = 0
-        print("    |    You have killed the monster")
+        print("    |    You dealt " + str(damage) + " damage and killed the monster!")
     else:
-        # Player only damaged the monster
         m_health_points -= combat_strength
-
         print("    |    You have reduced the monster's health to: " + str(m_health_points))
-    return m_health_points
+    if lifesteal > 0:
+        heal = int(damage * lifesteal)
+        hero_health += heal
+        print("    |    Vampirism activated! You heal for " + str(heal) + " points. Your health is now " + str(hero_health))
+    return m_health_points, hero_health
 
-
-# Monster's Attack Function
-def monster_attacks(m_combat_strength, health_points):
-    ascii_image2 = """                                                                 
-            @@@@ @                           
-       (     @*&@  ,                         
-     @               %                       
-      &#(@(@%@@@@@*   /                      
-       @@@@@.                                
-                @       /                    
-                 %         @                 
-             ,(@(*/           %              
-                @ (  .@#                 @   
-                           @           .@@. @
-                    @         ,              
-                       @       @ .@          
-                              @              
-                           *(*  *      
-              """
-    print(ascii_image2)
-    print("    |    Monster's Claw (" + str(m_combat_strength) + ") ---> Player (" + str(health_points) + ")")
-    if m_combat_strength >= health_points:
-        # Monster was strong enough to kill player in one blow
-        health_points = 0
-        print("    |    Player is dead")
+def monster_attacks(m_combat_strength, hero_health, hero_shield=0, shield_regen=0):
+    """
+    Monster's attack function with shield mechanics.
+    Displays a dragon sprite, calculates damage and allows shield to absorb some damage.
+    After the attack, the shield regenerates by shield_regen points.
+    Returns updated hero health and shield.
+    """
+    dragon_art = r"""
+                           /           /
+                  ___====-_  _-====___
+            _--^^^#####//      \\#####^^^--_
+         _-^##########// (    ) \\##########^-_
+        -############//  |\^^/|  \\############-
+      _/############//   (@::@)   \\############\_
+     /#############((     \\//     ))#############\
+    -###############\\    (oo)    //###############-
+   -#################\\  / "" \  //#################-
+  -###################\\/  (_)  \//###################-
+ _#/|##########/\######(   "/"   )######/\##########|\#_
+ |/ |#/\#/\#/\/  \#/\##\  ! ' !  /##/\#/  \/\#/\#/\| \|
+ '  |/  V  V '   V  \\#\  \   /  /#/  V   '  V  V  \|  '
+    '   '  '      '   /#\  | |  /#\   '      '  '   '
+                     (  (  | |  )  )
+                    __\  \ | | /  /__
+                   (vvv(VVV)(VVV)vvv)
+    """
+    print(dragon_art)
+    damage = random.randint(1, m_combat_strength)
+    print("    |    Monster's attack damage: " + str(damage))
+    # Apply shield absorption if available.
+    if hero_shield > 0:
+        if damage <= hero_shield:
+            print("    |    Your shield absorbed all " + str(damage) + " damage.")
+            hero_shield -= damage
+            damage = 0
+        else:
+            print("    |    Your shield absorbed " + str(hero_shield) + " damage and broke!")
+            damage -= hero_shield
+            hero_shield = 0
+    if damage > 0:
+        hero_health -= damage
+        print("    |    You took " + str(damage) + " damage. Your health is now " + str(hero_health))
     else:
-        # Monster only damaged the player
-        health_points -= m_combat_strength
-        print("    |    The monster has reduced Player's health to: " + str(health_points))
-    return health_points
+        print("    |    No damage got through. Your health remains at " + str(hero_health))
+    if shield_regen > 0:
+        hero_shield += shield_regen
+        print("    |    Your shield regenerates by " + str(shield_regen) + " points. New shield value: " + str(hero_shield))
+    return hero_health, hero_shield
 
+# ------------------ Recursion ------------------
 
-# Recursion
-# You can choose to go crazy, but it will reduce your health points by 5
 def inception_dream(num_dream_lvls):
     num_dream_lvls = int(num_dream_lvls)
-    # Base Case
     if num_dream_lvls == 1:
         print("    |    You are in the deepest dream level now")
         print("    |", end="    ")
         input("Start to go back to real life? (Press Enter)")
         print("    |    You start to regress back through your dreams to real life.")
         return 2
-
-    # Recursive Case
     else:
-        # inception_dream(5)
-        # 1 + inception_dream(4)
-        # 1 + 1 + inception_dream(3)
-        # 1 + 1 + 1 + inception_dream(2)
-        # 1 + 1 + 1 + 1 + inception_dream(1)
-        # 1 + 1 + 1 + 1 + 2
         return 1 + int(inception_dream(num_dream_lvls - 1))
 
-
-def get_file_path():
-    # Define o caminho relativo ao diretório do script atual
-    base_dir = os.path.dirname(__file__)  # Obtém o diretório onde o script está localizado
-    file_path = os.path.join(base_dir, 'save.txt')  # Constrói o caminho até o arquivo save.txt
-    return file_path
+# ------------------ Save/Load Game ------------------
 
 def save_game(winner, hero_name="", num_stars=0):
-    last_game_state, last_monsters_count = load_game()
-    new_total_monsters_killed = last_monsters_count
-    with open(get_file_path(), "a") as file:  # Usa a função get_file_path para obter o caminho correto
+    with open("save.txt", "a") as file:
         if winner == "Hero":
-            new_total_monsters_killed += 1
             file.write(f"Hero {hero_name} has killed a monster and gained {num_stars} stars.\n")
         elif winner == "Monster":
             file.write("Monster has killed the hero.\n")
-        file.write(f"Total monsters killed: {new_total_monsters_killed}\n")
+        file.write(f"Total monsters killed: {num_stars}\n")
 
 def load_game():
     try:
-        with open(get_file_path(), "r") as file:  # Usa a função get_file_path para obter o caminho correto
+        with open("save.txt", "r") as file:
             print("Loading from saved file")
             last_monsters_count = 0
             last_game_state = ""
@@ -193,8 +206,6 @@ def load_game():
         print("No previous game found, starting first game")
         return "", 0
 
-
-# Lab 06 - Question 5b
 def adjust_combat_strength(combat_strength, m_combat_strength):
     last_game_state, total_monsters_killed = load_game()
     if last_game_state:
@@ -207,10 +218,8 @@ def adjust_combat_strength(combat_strength, m_combat_strength):
             combat_strength += 1
             print("    |    ... Increasing the hero's combat strength since you lost last time")
         else:
-            print(
-                "    |    ... Based on your previous game, neither the hero nor the monster's combat strength will be increased")
+            print("    |    ... Based on your previous game, neither the hero nor the monster's combat strength will be increased")
     return combat_strength, m_combat_strength
-
 
 def dream_level():
     while True:
@@ -223,3 +232,126 @@ def dream_level():
                 print("Enter a number between 0 and 3.")
         except ValueError:
             print("Enter a valid integer.")
+
+# ------------------ Legendary Quest ------------------
+
+def legendary_quest(hero):
+    print("\n*** Legendary Quest Triggered! ***")
+    chest_art = r"""
+           __________
+          /\____;;___\
+         | /         /
+         `. ())oo() .
+         |\(%()*^^()^\
+        %| |-%-------|
+       % \ | %  ))   |
+       %  \|%________|
+        %%%%
+    """
+    print(chest_art)
+    challenge_result = random.randint(1, 10)
+    print("You roll the challenge dice... Result:", challenge_result)
+    if challenge_result >= 3:
+        print("You have overcome the challenge and unlocked the legendary chest!")
+        legendary_items = [
+            {"name": "Relic of Power", "type": "buff", "effect": "Increase combat strength by 10", "bonus": 10, "art": r"""
+                __________
+               '._==_==_=_.' 
+               .-\:      /-. 
+              | (|:.     |) | 
+               '-|:.     |-'  
+                 \::.    /   
+                  '::. .'
+                    ) (
+                  _.' '._ 
+                 `"""""""` 
+            """},
+            {"name": "Excalibur", "type": "weapon", "effect": "Equip to gain +10 to combat and health", "bonus": 10, "art": r"""
+                 _
+                (_)
+                |=|
+                |=|
+            /|__|_|__|\
+           (    ( )    )
+            \|\/\"/\/|/
+              |  Y  |
+              |  |  |
+              |  |  |
+             _|  |  |
+          __/ |  |  |\
+         /  \ |  |  |  \
+        __|  |  |  |   |
+      /\/  |  |  |   |\
+       <   +\ | |\ />  \
+        >   + \  | LJ    |
+              + \|+  \  < \
+        (O)      +    |    )
+         |             \  /\ 
+       ( | )   (o)      \/  )
+      _\\|//__( | )______)_/ 
+              \\|// 
+            """},
+            {"name": "Mystic Amulet", "type": "shield", "effect": "Provides shield regeneration of 4 per turn", "bonus": 4, "art": r"""
+                o--o--=g=--o--o
+               /      .'       \
+               o      '.       o
+                \             /
+                 o           o
+                  \         /
+                   o       o
+                    \     /
+                     o   o
+                      \_/
+                       =
+                      .^.
+                     '   '
+                     '. .'
+                       !
+            """},
+            {"name": "Vampirism Cape", "type": "lifesteal", "effect": "Gain 50% of damage dealt as HP", "bonus": 0.5, "art": r"""
+             ,*-~\"`^\"*u_                                _u*\"^`\"~-*,
+          p!^       /  jPw                            w9j \        ^!p
+        w^.._      /      \_                      _/\"     \        _.^w
+             *_   /          \_      _    _      _/         \     _* 
+               q /           / \q   ( `--` )   p/ \          \   p
+               jj5****._    /    ^\_) o  o (_/^    \    _.****6jj
+                        *_ /      \"==) ;; (==\"      \ _*
+                         `/.w***,   /(    )\   ,***w.\"
+                          ^ ilmk ^c/ )    ( \c^      ^
+                                  'V')_)(_('V'
+                                      `` ``
+            """}
+        ]
+        reward = random.choice(legendary_items)
+        print(f"You have found the {reward['name']}! {reward['effect']}")
+        print(reward["art"])
+        if reward["name"] == "Excalibur":
+            decision = input("Do you want to equip Excalibur? (y/n): ")
+            if decision.lower() == "y":
+                hero.combat_strength += reward["bonus"]
+                hero.health_points += reward["bonus"]
+                hero.weapon = "Excalibur"
+                print("Excalibur equipped! Your combat and health points increased by 10 each.")
+            else:
+                print("You leave Excalibur behind.")
+        elif reward["name"] == "Relic of Power":
+            hero.combat_strength += reward["bonus"]
+            hero.relic = True
+            print(f"Your combat strength increases by {reward['bonus']}.")
+        elif reward["name"] == "Mystic Amulet":
+            hero.shield = reward["bonus"]
+            print("You gain the Mystic Amulet! You now regenerate 4 shield points each turn.")
+        elif reward["name"] == "Vampirism Cape":
+            hero.lifesteal = reward["bonus"]
+            print("You gain the Vampirism Cape! You now steal half the damage dealt as health.")
+        return True
+    else:
+        print("You failed the legendary quest challenge. The chest vanishes!")
+        return False
+
+
+
+
+
+
+
