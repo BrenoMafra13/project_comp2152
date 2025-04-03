@@ -316,8 +316,8 @@ def legendary_quest(hero):
                q /           / \q   ( `--` )   p/ \          \   p
                jj5****._    /    ^\_) o  o (_/^    \    _.****6jj
                         *_ /      \"==) ;; (==\"      \ _*
-                         `/.w***,   /(    )\   ,***w.\"
-                          ^ ilmk ^c/ )    ( \c^      ^
+                         `/.w***,   /(    )\   ,***w.\" 
+                          ^ ilmk ^c/ )    ( \c^      ^ 
                                   'V')_)(_('V'
                                       `` ``
             """}
@@ -348,10 +348,4 @@ def legendary_quest(hero):
     else:
         print("You failed the legendary quest challenge. The chest vanishes!")
         return False
-
-
-
-
-
-
 

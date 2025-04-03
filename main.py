@@ -252,7 +252,6 @@ if not input_invalid:
         winner = "Hero"
         print("\nYou defeated the dragon!")
 
-        # Artifact Collection
         # Create a hero object and update its current statistics.
         hero_obj = Hero()
         hero_obj.combat_strength = combat_strength

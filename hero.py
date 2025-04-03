@@ -4,7 +4,7 @@ from character import Character
 class Hero(Character):
     def __init__(self):
         super().__init__(random.randint(1, 6) * 10, random.randint(1, 6) * 20)
-        self.inventory = []  # new attribute for artifacts
+        self.inventory = []  # New attribute to store artifacts
 
     def __del__(self):
         print("The Hero is being destroyed.")

@@ -14,4 +14,3 @@ class Monster(Character):
         attack_damage = random.randint(1, 15)
         print(f"Monster attacks: {attack_damage} damage to hero.")
         return attack_damage
-

@@ -8,5 +8,8 @@ Hero wiw has killed a monster and gained 2 stars.
 Total monsters killed: 2
 Hero ses has killed a monster and gained 3 stars.
 Total monsters killed: 3
+<<<<<<< HEAD
 Hero Cab has killed a monster and gained 2 stars.
 Total monsters killed: 2
+=======
+>>>>>>> ca8e40925a479183d484e4eef6d89088cc5a5480
