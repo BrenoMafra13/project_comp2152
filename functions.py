@@ -348,10 +348,10 @@ def legendary_quest(hero):
     else:
         print("You failed the legendary quest challenge. The chest vanishes!")
         return False
-'''
 
-final_main_txt = final_main_py  # alias
 
----
 
-**save.txt**
+
+
+
+

@@ -3,6 +3,7 @@ import os
 import platform
 import functions as functions
 from hero import Hero
+from monster import Monster
 
 print("Operating System:", os.name)
 print("Python Version:", platform.python_version())
@@ -86,8 +87,8 @@ if not input_invalid:
    &   (  @    (   / /   *    @  .   /  
      @ % #         /   .       @ ( @    
                  %   .@*                
-               #         .              
-             /     # @   *              
+               #         .               
+             /     # @   *               
                  ,     %                
             @&@           @&@
     """
@@ -250,6 +251,42 @@ if not input_invalid:
     if m_health_points <= 0:
         winner = "Hero"
         print("\nYou defeated the dragon!")
+
+        # Artifact Collection
+        # Create a hero object and update its current statistics.
+        hero_obj = Hero()
+        hero_obj.combat_strength = combat_strength
+        hero_obj.health_points = health_points
+        hero_obj.inventory = []  # Initialize an empty inventory
+
+        # Create a monster object to simulate artifact loot.
+        monster_obj = Monster()
+        # For demonstration purposes, override the loot with known artifacts.
+        monster_obj.loot = ["Amulet of Power", "Golden Sword", "Minor Ring", "Boots of Speed"]
+
+        print("\nCollecting artifacts from the defeated monster...")
+        new_artifacts = [a for a in monster_obj.loot if a not in hero_obj.inventory]
+        hero_obj.inventory.extend(new_artifacts)
+        print("Artifacts collected:", hero_obj.inventory)
+
+        if hero_obj.combat_strength > 4:
+            if 'Amulet of Power' in hero_obj.inventory:
+                hero_obj.combat_strength += 2
+                print("Artifact effect applied: Amulet of Power increases combat strength by 2.")
+            elif 'Golden Sword' in hero_obj.inventory:
+                hero_obj.combat_strength += 3
+                print("Artifact effect applied: Golden Sword increases combat strength by 3.")
+        else:
+            if 'Minor Ring' in hero_obj.inventory:
+                hero_obj.health_points += 2
+                print("Artifact effect applied: Minor Ring increases health points by 2.")
+            elif 'Boots of Speed' in hero_obj.inventory:
+                hero_obj.combat_strength += 1
+                print("Artifact effect applied: Boots of Speed increases combat strength by 1.")
+
+        # Update local variables for final display.
+        combat_strength = hero_obj.combat_strength
+        health_points = hero_obj.health_points
     else:
         winner = "Monster"
         print("You lost the fight with the dragon! Game over.")

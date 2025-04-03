@@ -2,13 +2,9 @@ import random
 from character import Character
 
 class Monster(Character):
-    def __init__(self, combat_strength=None, health_points=None):
-        if combat_strength is None:
-            combat_strength = random.randint(1, 6) * 10
-        if health_points is None:
-            health_points = random.randint(1, 6) * 20
-        super().__init__(combat_strength, health_points)
-        self.magic_power = ""
+    def __init__(self):
+        super().__init__(random.randint(1, 6) * 10, random.randint(1, 6) * 20)
+        self.loot = random.sample(["Amulet of Power", "Golden Sword", "Minor Ring", "Boots of Speed"], k=random.randint(1, 4))
 
     def __del__(self):
         print("The Monster is being destroyed.")
@@ -18,3 +14,4 @@ class Monster(Character):
         attack_damage = random.randint(1, 15)
         print(f"Monster attacks: {attack_damage} damage to hero.")
         return attack_damage
+
