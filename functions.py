@@ -124,26 +124,7 @@ def monster_attacks(m_combat_strength, hero_health, hero_shield=0, shield_regen=
     After the attack, the shield regenerates by shield_regen points.
     Returns updated hero health and shield.
     """
-    dragon_art = r"""
-                           /           /
-                  ___====-_  _-====___
-            _--^^^#####//      \\#####^^^--_
-         _-^##########// (    ) \\##########^-_
-        -############//  |\^^/|  \\############-
-      _/############//   (@::@)   \\############\_
-     /#############((     \\//     ))#############\
-    -###############\\    (oo)    //###############-
-   -#################\\  / "" \  //#################-
-  -###################\\/  (_)  \//###################-
- _#/|##########/\######(   "/"   )######/\##########|\#_
- |/ |#/\#/\#/\/  \#/\##\  ! ' !  /##/\#/  \/\#/\#/\| \|
- '  |/  V  V '   V  \\#\  \   /  /#/  V   '  V  V  \|  '
-    '   '  '      '   /#\  | |  /#\   '      '  '   '
-                     (  (  | |  )  )
-                    __\  \ | | /  /__
-                   (vvv(VVV)(VVV)vvv)
-    """
-    print(dragon_art)
+
     damage = random.randint(1, m_combat_strength)
     print("    |    Monster's attack damage: " + str(damage))
     # Apply shield absorption if available.
