@@ -52,6 +52,144 @@ dragon_art = r"""
                    (vvv(VVV)(VVV)vvv)
 """
 
+# ASCII arts for the new monsters:
+skeleton_art = r"""
+                              _.--""-._
+  .                         ."         ".
+ / \    ,^.         /(     Y             |      )\
+/   `---. |--'\    (  \__..'--   -   -- -'""-.-'  )
+|        :|    `>   '.     l_..-------.._l      .'
+|      __l;__ .'      "-.__.||_.-'v'-._||`"----"
+ \  .-' | |  `              l._       _.'
+  \/    | |                   l`^^'^^'j
+        | |                _   \_____/     _
+        j |               l `--__)-'(__.--' |
+        | |               | /`---``-----'"1 |  ,-----.
+        | |               )/  `--' '---'   \'-'  ___  `-.
+        | |              //  `-'  '`----'  /  ,-'   I`.  \
+      _ L |_            //  `-.-.'`-----' /  /  |   |  `. \
+     '._' / \         _/(   `/   )- ---' ;  /__.J   L.__.\ :
+      `._;/7(-.......'  /        ) (     |  |            | |
+      `._;l _'--------_/        )-'/     :  |___.    _._./ ;
+        | |                 .__ )-'\  __  \  \  I   1   / /
+        `-'                /   `-\-(-'   \ \  `.|   | ,' /
+                           \__  `-'    __/  `-. `---'',-'
+                              )-._.-- (        `-----'
+                             )(  l\ o ('..-.
+                       _..--' _'-' '--'.-. |
+                __,,-'' _,,-''            \ \
+               f'. _,,-'                   \ \
+              ()--  |                       \ \
+                \.  |                       /  \
+                  \ \                      |._  |
+                   \ \                     |  ()|
+                    \ \                     \  /
+                     ) `-.                   | |
+                    // .__)                  | |
+                 _.//7'                      | |
+               '---'                         j_| `
+                                            (| |
+                                             |  \
+                                             |lllj
+                                             ||||| 
+"""
+
+bat_art = r"""
+  ___
+. --.`-._^,
+|,;::;-._ `-._
+ |`::::`; ;-. `_
+ | ;::::; ::`-. `,                       _,-'.  .. ` ---.____
+  ; ;;;;` :::::`.`                      ;  :::` `:; `;;.     `---._
+  | : ::' ::::::`.`                    ; .':::'  ;:. `.;;;;;;;;;
+  ; :::`, :::::::`.`.     ^          .' /\ :::`, ':::.   `;;; ; ;;;
+ : :::::` `;::::::`.`-._ / \   ______;,' ; ::::` :::::::. `.;;;;;;;
+ | ::::::; |:::::::`-.   ) ,; '       `.( :::::; `::::::::. `;;;;;
+ | ::::::` ::::::::: `   ; `;; ;\  _ _ ;/ ::: :`  ;: ::::::: ;;;;;
+ ; ;:::::; |::::::::: )  `-.\( `o}' ` _(   ::: ;  '::::::::: `;;;;
+: ;::::::; ;:: :::::: \              `v'. :::::`; :::::::::`. ;;;;
+| :::::::|  ` :::::::: `.   `-._ `.-._;_; ::::::` `:::::::::: `;;;
+| :::::: :;;, `::::::::.`-.     `.`._`'`'  : :::;  ;:: :::::`. ;;;;
+| ::::::::  :  ;: :::::: .'      `-._;   ; :: ::`  ::::::::::: `;;;
+| ::::::::::`; `.::::::: `.   ::         : ::: ::. `.:::::::::: `;;
+| ;::::::::::: ;::::::::: :.    ;;  ;;  | :::::: `  ;: :::::::: ;;
+`v'.:::::::::: ;:::::::::: :      ;;   .'::::::::`;  ::::::::::: ;'
+    ~~~`.::::: ;:::::::::: |           : :::::::::`. `::::::::/`v'
+         \:: .,;:::::::   _;'    :;;  .'_ ;;:::::::;  ,:::,'
+          ~\ ;;::::::: ,-',-':   `    :-.`_  ::::::`. ;;,-'
+           | ;--.::::: ;;  .:`.       ;..`.`. ;::::::  /
+           `v'    `-.; :; .... `------ ...`.: ,-'    : ;
+                      )|| . ......; ;  ... :|/       `v
+                     __;| .... ...; ` .... :|
+                    ((c-.`._ .... `.`. . . ;`-.__
+                    ""   `' `. ....`.`; .. ))~`-))
+                              `-. . ;.'. ,/"    ""
+                                 `._ Y ,/
+                                    \`/
+"""
+
+vampire_art = r"""
+                  __,-----,,,,  ,,,--------,__ 
+                _-/|\\/|\\/|\\\|\//\\\//|/|//|\\_ 
+               /|\/\//\\\\\\\\\\//////////////\\\\ 
+             //|//           \\\///            |\\|\ 
+            ///|\/             \/               \|\|\ 
+           |/|//                                 |\\|\  
+          |/|/                                    \|\|\
+          ///;    ,,=====,,,  ~~-~~  ,,,=====,,    ;|\|\
+         |/|/   '"          `'     '"          "'   ;|\|
+         ||/`;   _--~~~~--__         __--~~~~--_   ;/|\|
+         /|||;  :  /       \~~-___-~~/       \  :  ;|\| 
+         /\|;    -_\  (o)  / ,'; ;', \  (o)  /_-    ;||
+         |\|;      ~-____--~'  ; ;  '~--____-~      ;\|
+          ||;            ,`   ;   ;   ',            ;||
+        __|\ ;        ,'`    (  _  )    `',        ;/|__ 
+    _,-~   \|/;    ,'`        ~~ ~~        `',    ;|\   ~-,_ 
+  ,'         ||;  '                           '  ;\|/       `, 
+ , _          ; ,         _--~~-~~--_           ;            _',
+,-' `;-,        ;        ,; |_| | |_| ;,       ;;        ,-;' `-,
+      ; `,      ;       ;_| : `~'~' : |_;       ;      ,' ;
+       ;  `,     ;     :  `\/       \/   :     ;     ,'  ;
+        ;   `,    ;     :               ;     ;    ,'   ;
+         ;    `,_  ;     ;./\_     _/\.;     ;   _,    ;
+spb   _-'        ;  ;     ~~--|~|~|--~~     ;   ;       '-_
+  _,-'            ;  ;        ~~~~~        ;   ;           `-,_
+,~                 ;  \`~--__         __--~/  ;                ~,
+                    ;   \   ~~-----~~    /   ;
+                     ~-_  \  /  |  \   /  _-~
+                        ~~-\/   |   \/ -~~
+                       (=)=;==========;=(=)
+"""
+
+alchemist_art = r"""
+                       ,---.
+                       /    |
+                      /     |
+                     /      | 
+                    /       |
+               ___,'        |
+             <  -'          :
+              `-.__..--'``-,_\_
+                 |o/ ` :,.)_`>
+                 :/ `     ||/)
+                 (_.).__,-` |\
+                 /( `.``   `| :
+                 \'`-.)  `  ; ;
+                 | `       /-<
+                 |     `  /   `.
+ ,-_-..____     /|  `    :__..-'\
+/,'-.__\\  ``-./ :`      ;       \
+`\ `\  `\\  \ :  (   `  /  ,   `. \
+  \` \   \\   |  | `   :  :     .\ \
+   \ `\_  ))  :  ;     |  |      ): :
+  (`-.-'\ ||  |\ \   ` ;  ;       | |
+   \-_   `;;._   ( `  /  /_       | |
+    `-.-.// ,'`-._\__/_,'         ; |
+       \:: :     /     `     ,   /  |
+        || |    (        ,' /   /   |
+        ||                ,'   /    |
+"""
+
 # --- Input Phase: Get valid combat strengths ---
 i = 0
 input_invalid = True
@@ -105,11 +243,11 @@ if not input_invalid:
     if weapon_roll <= 2:
         print("    |    --- You rolled a weak weapon, friend")
     elif weapon_roll <= 4:
-        print("    |    --- Your weapon is meh")
+        print("    |    --- Your weapon is mediocre")
     else:
-        print("    |    --- Nice weapon, friend!")
+        print("    |    --- Great weapon, friend!")
     if weapons[weapon_roll - 1] != "Fist":
-        print("    |    --- Thank goodness you didn't roll the Fist...")
+        print("    |    --- At least you didn't get stuck with only your fists...")
 
     # --- Health Points ---
     print("    ------------------------------------------------------------------")
@@ -164,11 +302,9 @@ if not input_invalid:
     if random.random() < 1.0:
         print("\n*** A legendary treasure chest appears! ***")
 
-
         # For temporary stats use a simple object.
         class TempHero:
             pass
-
 
         temp_hero = TempHero()
         temp_hero.combat_strength = combat_strength
@@ -188,7 +324,177 @@ if not input_invalid:
                 print("    |    New lifesteal ability acquired:", temp_hero.lifesteal)
         lifesteal = temp_hero.lifesteal
 
-    # --- Dream Level Sequence ---
+    # --------------------------------------------------------------------------
+    #  FIRST EXTRA BATTLE: SKELETON KING FIGHT
+    # --------------------------------------------------------------------------
+    print("\n------------------------------------------------------------------")
+    print("Suddenly, you step into a dark corridor of crumbling walls and eerie silence.")
+    print("In the distance, you hear the echo of rattling bones. Torches flicker as you approach.")
+    print("A towering figure of cursed armor emerges, an ancient presence known as the:")
+    print("THE ARMORED SKELETON KING!\n")
+    print("You hear the sharp clink of its rusted sword being raised. A menacing grin can be sensed\n"
+          "beneath the skeletal visage as it readies for battle...\n")
+    print(skeleton_art)
+
+    # Stats for the Skeleton King
+    skeleton_hp = random.randint(6, 15)   # a bit less than the final boss
+    skeleton_cs = random.randint(2, 5)    # moderate combat strength
+    print("    |    The Armored Skeleton King roars with a Combat Strength of:", skeleton_cs)
+    print("    |    Its bones seem to glow with an unholy aura. Health Points:", skeleton_hp)
+
+    while skeleton_hp > 0 and health_points > 0:
+        print("\n    |", end="    ")
+        input("Roll to see who strikes first against the Skeleton King (Press Enter)")
+        attack_roll = random.choice(small_dice_options)
+        if attack_roll % 2 != 0:
+            # Hero attacks first
+            print("    |", end="    ")
+            input("You strike (Press enter)")
+            skeleton_hp, health_points = functions.hero_attacks(combat_strength, skeleton_hp, lifesteal,
+                                                                health_points)
+            if skeleton_hp == 0:
+                num_stars = 2
+            else:
+                print("    |", end="    ")
+                print("------------------------------------------------------------------")
+                input("    |    The Skeleton King swings its rusted blade! (Press enter)")
+                health_points, shield = functions.monster_attacks(skeleton_cs, health_points, shield, 0)
+                if shield > 0:
+                    shield += shield_regen
+                    print("    |    Your shield regenerates by " + str(shield_regen) +
+                          " points. New shield value: " + str(shield))
+                if health_points == 0:
+                    num_stars = 1
+        else:
+            # Skeleton attacks first
+            print("    |", end="    ")
+            input("The Skeleton King lunges forward! (Press enter)")
+            health_points, shield = functions.monster_attacks(skeleton_cs, health_points, shield, 0)
+            if shield > 0:
+                shield += shield_regen
+                print("    |    Your shield regenerates by " + str(shield_regen) +
+                      " points. New shield value: " + str(shield))
+            if health_points == 0:
+                num_stars = 1
+            else:
+                print("    |", end="    ")
+                print("------------------------------------------------------------------")
+                input("    |    The hero counterattacks!! (Press enter)")
+                skeleton_hp, health_points = functions.hero_attacks(combat_strength, skeleton_hp, lifesteal,
+                                                                    health_points)
+                if skeleton_hp == 0:
+                    num_stars = 2
+
+    if skeleton_hp <= 0:
+        print("\nYou have shattered the Armored Skeleton King into a pile of bones!")
+        print("As the last bone clinks to the ground, the hallway grows silent again...\n")
+        winner_skel = "Hero"
+    else:
+        print("\nYou have been defeated by the Armored Skeleton King. Your adventure ends here...")
+        winner_skel = "Monster"
+        exit()  # End game
+
+    # --------------------------------------------------------------------------
+    #  SECOND EXTRA BATTLE: VAMPIRE CAZADOR
+    # --------------------------------------------------------------------------
+    print("------------------------------------------------------------------")
+    print("Moments later, you enter a grand chamber with a massive throne in the center.")
+    print("Crimson carpets lie soaked with fresh blood, leading up to the dais.")
+    print("Above the throne, near a tall stained-glass window, a shadowy figure looms.\n")
+    print("Suddenly, a small bat drops from the window and swoops toward you!")
+    print(bat_art)
+    print("\nYou dodge quickly, and the bat circles around, heading back to the throne.\n"
+          "In a swirl of dark mist, the bat morphs into a pale figure clad in regal attire.\n"
+          "He reveals himself with a cold, echoing laugh:\n")
+    print(vampire_art)
+    print("\"I am Cazador, the King of Vampires... Ruler of this forsaken domain.\"\n")
+    print("He casts a twisted grin, baring his fangs:\n")
+    print("\"Your blood will be a fine vintage. Prepare yourself for my eternal night!\"\n")
+
+    # Stats for Cazador (the Vampire)
+    vampire_hp = random.randint(8, 18)
+    vampire_cs = random.randint(3, 6)
+    print("    |    Cazador's Combat Strength:", vampire_cs)
+    print("    |    His pale skin glimmers with dark power. Health Points:", vampire_hp)
+
+    while vampire_hp > 0 and health_points > 0:
+        print("\n    |", end="    ")
+        input("Roll to see who strikes first against the Vampire (Press Enter)")
+        attack_roll = random.choice(small_dice_options)
+        if attack_roll % 2 != 0:
+            # Hero first
+            print("    |", end="    ")
+            input("You attack Cazador (Press enter)")
+            vampire_hp, health_points = functions.hero_attacks(combat_strength, vampire_hp, lifesteal,
+                                                               health_points)
+            if vampire_hp == 0:
+                num_stars = 2
+            else:
+                print("    |", end="    ")
+                print("------------------------------------------------------------------")
+                input("    |    Cazador lunges at you with supernatural speed! (Press enter)")
+                health_points, shield = functions.monster_attacks(vampire_cs, health_points, shield, 0)
+                if shield > 0:
+                    shield += shield_regen
+                    print("    |    Your shield regenerates by " + str(shield_regen) +
+                          " points. New shield value: " + str(shield))
+                if health_points == 0:
+                    num_stars = 1
+        else:
+            # Vampire first
+            print("    |", end="    ")
+            input("Cazador rushes forward in a blur! (Press enter)")
+            health_points, shield = functions.monster_attacks(vampire_cs, health_points, shield, 0)
+            if shield > 0:
+                shield += shield_regen
+                print("    |    Your shield regenerates by " + str(shield_regen) +
+                      " points. New shield value: " + str(shield))
+            if health_points == 0:
+                num_stars = 1
+            else:
+                print("    |", end="    ")
+                print("------------------------------------------------------------------")
+                input("    |    You seize a moment to strike back! (Press enter)")
+                vampire_hp, health_points = functions.hero_attacks(combat_strength, vampire_hp, lifesteal,
+                                                                   health_points)
+                if vampire_hp == 0:
+                    num_stars = 2
+
+    if vampire_hp <= 0:
+        print("\nCazador collapses onto his throne, dissolving into ashes!")
+        print("\"You may have... defeated me... but darkness never dies...\"")
+        print("With his last breath, the throne room falls eerily silent.\n")
+        winner_vamp = "Hero"
+    else:
+        print("\nYour lifeblood has been drained by Cazador. The reign of the Vampire King continues...")
+        winner_vamp = "Monster"
+        exit()  # End game
+
+    # --------------------------------------------------------------------------
+    #  ALCHEMIST EVENT
+    # --------------------------------------------------------------------------
+    print("------------------------------------------------------------------")
+    print("As you catch your breath, a figure steps out from behind the throne's pillar.")
+    print("He wears tattered robes stained with strange elixirs, a sorrowful look on his face.\n")
+    print(alchemist_art)
+    print("He speaks softly:\n")
+    print("\"I was forced to brew potions for Cazador's army... Thank you for freeing me.\"")
+    print("\"I am but an Alchemist, longing to escape this nightmare. Here, take this gift.\"")
+    print("\"May it restore you for the challenges yet to come.\" \n")
+
+    # Heal or buff from the Alchemist
+    alchemist_heal = random.randint(5, 15)
+    old_hp = health_points
+    health_points = min(100, health_points + alchemist_heal)
+    print(f"The Alchemist hands you a sparkling vial. You drink it, healing {alchemist_heal} HP.")
+    print(f"Your health rises from {old_hp} to {health_points}.\n")
+
+    # The alchemist bows, then quietly disappears.
+    print("He bows in gratitude and slips away into the shadows...\n")
+
+    # --------------------------------------------------------------------------
+    #  DREAM LEVEL SEQUENCE (already in code)
+    # --------------------------------------------------------------------------
     print("    ------------------------------------------------------------------")
     num_dream_lvls = functions.dream_level()
     if num_dream_lvls != 0:
@@ -313,8 +619,11 @@ if not input_invalid:
         stars_display = "*" * num_stars
         print("    |    Hero " + short_name + " gets <" + stars_display + "> stars")
         functions.save_game(winner, hero_name=short_name, num_stars=num_stars)
-        print("    ------------------------------------------------------------------")
+        print("    ------------------------------------------------------------------------------------------------------------")
         print("    |    Game saved")
-        print("    ------------------------------------------------------------------")
+        print("    ------------------------------------------------------------------------------------------------------------")
         print("    |    Thank you for playing")
-        print("    ------------------------------------------------------------------")
+        print("    ------------------------------------------------------------------------------------------------------------")
+        print("    |    Game created by Gustavo Miranda, Lucas Tavares Criscuolo, Carlos Figuera La Riva and Breno Lopes Mafra")
+        print("    ------------------------------------------------------------------------------------------------------------")
+
