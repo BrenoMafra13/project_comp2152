@@ -52,7 +52,7 @@ dragon_art = r"""
                    (vvv(VVV)(VVV)vvv)
 """
 
-# --- Input Phase: Get valid combat strengths ---
+# ---------------------- INPUTS -----------------------
 i = 0
 input_invalid = True
 while input_invalid and i < 5:
@@ -79,27 +79,11 @@ if not input_invalid:
     # --- Weapon Roll ---
     print("    |", end="    ")
     input("Roll the dice for your weapon (Press enter)")
-    ascii_image5 = """
-              , %               .           
-   *      @./  #         @  &.(         
-  @        /@   (      ,    @       # @ 
-  @        ..@#% @     @&*#@(         % 
-   &   (  @    (   / /   *    @  .   /  
-     @ % #         /   .       @ ( @    
-                 %   .@*                
-               #         .               
-             /     # @   *               
-                 ,     %                
-            @&@           @&@
-    """
-    print(ascii_image5)
     weapon_roll = random.choice(small_dice_options)
     combat_strength = min(6, combat_strength + weapon_roll)
     print("    |    The hero's weapon is " + str(weapons[weapon_roll - 1]))
     combat_strength, m_combat_strength = functions.adjust_combat_strength(combat_strength, m_combat_strength)
 
-    # --- Weapon Analysis ---
-    print("    ------------------------------------------------------------------")
     print("    |", end="    ")
     input("Analyze the Weapon roll (Press enter)")
     if weapon_roll <= 2:
@@ -109,67 +93,27 @@ if not input_invalid:
     else:
         print("    |    --- Nice weapon, friend!")
     if weapons[weapon_roll - 1] != "Fist":
-        print("    |    --- Thank goodness you didn't roll the Fist...")
+        print("    |    --- Thank goodness you didn't roll the Fist.")
 
     # --- Health Points ---
-    print("    ------------------------------------------------------------------")
-    print("    |", end="    ")
     input("Roll the dice for your health points (Press enter)")
     health_points = random.choice(big_dice_options)
     print("    |    Player rolled " + str(health_points) + " health points")
-    print("    |", end="    ")
     input("Roll for the monster's health points (Press enter)")
     m_health_points = random.choice(big_dice_options)
     print("    |    Monster rolled " + str(m_health_points) + " health points")
 
     # --- Loot Collection ---
-    print("    ------------------------------------------------------------------")
-    print("    |    !!You find a loot bag!! You look inside to find 4 items:")
-    input("Press enter to see what's inside and make your choices...")
+    print("    |    !!You find a loot bag!!")
+    input("Press enter to open it")
     loot_options, belt = functions.collect_loot(loot_options, belt)
-
-    # Use Loot (refined version that updates combat strength)
     belt, health_points, combat_strength = functions.use_loot(belt, health_points, combat_strength)
-    print("    |    Updated combat strength after using items: " + str(combat_strength))
-
-    # --- Strength and Health Check ---
-    print("    ------------------------------------------------------------------")
-    print("    |    --- You are matched in strength: " + str(combat_strength == m_combat_strength))
-    print("    |    --- You have a strong player: " + str((combat_strength + health_points) >= 15))
-
-    # --- Monster's Magic Power ---
-    print("    ------------------------------------------------------------------")
-    print("    |", end="    ")
-    input("Roll for Monster's Magic Power (Press enter)")
-    ascii_image4 = """
-            @%   @                      
-     @     @                        
-         &                          
-  @      .                          
- @       @                    @     
-          @                  @      
-  @         @              @  @     
-   @            ,@@@@@@@     @      
-     @                     @        
-        @               @           
-             @@@@@@@                
-    """
-    print(ascii_image4)
-    power_roll = random.choice(list(monster_powers.keys()))
-    m_combat_strength += min(6, m_combat_strength + monster_powers[power_roll])
-    print("    |    The monster's combat strength is now " + str(m_combat_strength) +
-          " using the " + power_roll + " magic power")
 
     # --- Optional Legendary Quest ---
     if random.random() < 1.0:
-        print("\n*** A legendary treasure chest appears! ***")
-
-
-        # For temporary stats use a simple object.
+        print("*** A legendary treasure chest appears! ***")
         class TempHero:
             pass
-
-
         temp_hero = TempHero()
         temp_hero.combat_strength = combat_strength
         temp_hero.health_points = health_points
@@ -179,142 +123,84 @@ if not input_invalid:
         if functions.legendary_quest(temp_hero):
             combat_strength = temp_hero.combat_strength
             health_points = temp_hero.health_points
-            if getattr(temp_hero, "weapon", None):
-                print("    |    New weapon equipped:", temp_hero.weapon)
-            if getattr(temp_hero, "shield", 0) > 0:
-                print("    |    New shield acquired:", temp_hero.shield)
-                shield = temp_hero.shield
-            if getattr(temp_hero, "lifesteal", 0) > 0:
-                print("    |    New lifesteal ability acquired:", temp_hero.lifesteal)
-        lifesteal = temp_hero.lifesteal
+            shield = getattr(temp_hero, "shield", 0)
+            lifesteal = getattr(temp_hero, "lifesteal", 0)
 
-    # --- Dream Level Sequence ---
-    print("    ------------------------------------------------------------------")
+    # --- Dream Levels ---
     num_dream_lvls = functions.dream_level()
-    if num_dream_lvls != 0:
+    if num_dream_lvls > 0:
         health_points -= 1
         crazy_level = functions.inception_dream(num_dream_lvls)
         combat_strength += crazy_level
-        print("    |    Combat strength: " + str(combat_strength))
-        print("    |    Health points: " + str(health_points))
-    print("    |    Number of dream levels: ", num_dream_lvls)
+        print("    |    Number of dream levels: ", num_dream_lvls)
+        print("    |    Combat strength: ", combat_strength)
+        print("    |    Health points: ", health_points)
 
-    # ------------------- PRIMARY FIGHT SEQUENCE (DRAGON FIGHT) -------------------
-    print("    ------------------------------------------------------------------")
+    # --- Final Fight ---
     print(dragon_art)
     print("    |    You meet the dragon. FIGHT!!")
     while m_health_points > 0 and health_points > 0:
-        print("    |", end="    ")
         input("Roll to see who strikes first (Press Enter)")
-        attack_roll = random.choice(small_dice_options)
-        if attack_roll % 2 != 0:
-            print("    |", end="    ")
+        if random.choice(small_dice_options) % 2 != 0:
             input("You strike (Press enter)")
-            m_health_points, health_points = functions.hero_attacks(combat_strength, m_health_points, lifesteal,
-                                                                    health_points)
+            m_health_points, health_points = functions.hero_attacks(combat_strength, m_health_points, lifesteal, health_points)
             if m_health_points == 0:
                 num_stars = 3
-            else:
-                print("    |", end="    ")
-                print("------------------------------------------------------------------")
-                input("    |    The dragon strikes (Press enter)!!!")
-                health_points, shield = functions.monster_attacks(m_combat_strength, health_points, shield, 0)
-                if shield > 0:
-                    shield += shield_regen
-                    print("    |    Your shield regenerates by " + str(shield_regen) +
-                          " points. New shield value: " + str(shield))
-                if health_points == 0:
-                    num_stars = 1
-                else:
-                    num_stars = 2
-        else:
-            print("    |", end="    ")
+                break
             input("The dragon strikes (Press enter)")
-            health_points, shield = functions.monster_attacks(m_combat_strength, health_points, shield, 0)
-            if shield > 0:
-                shield += shield_regen
-                print("    |    Your shield regenerates by " + str(shield_regen) +
-                      " points. New shield value: " + str(shield))
+            health_points, shield = functions.monster_attacks(m_combat_strength, health_points, shield, shield_regen)
+        else:
+            input("The dragon strikes first (Press enter)")
+            health_points, shield = functions.monster_attacks(m_combat_strength, health_points, shield, shield_regen)
             if health_points == 0:
                 num_stars = 1
-            else:
-                print("    |", end="    ")
-                print("------------------------------------------------------------------")
-                input("    |    The hero strikes!! (Press enter)")
-                m_health_points, health_points = functions.hero_attacks(combat_strength, m_health_points, lifesteal,
-                                                                        health_points)
-                if m_health_points == 0:
-                    num_stars = 3
-                else:
-                    num_stars = 2
+                break
+            input("The hero strikes back (Press enter)")
+            m_health_points, health_points = functions.hero_attacks(combat_strength, m_health_points, lifesteal, health_points)
 
+    # --- Final Results ---
     if m_health_points <= 0:
         winner = "Hero"
-        print("\nYou defeated the dragon!")
+        print("You defeated the dragon!")
 
-        # Create a hero object and update its current statistics.
         hero_obj = Hero()
         hero_obj.combat_strength = combat_strength
         hero_obj.health_points = health_points
-        hero_obj.inventory = []  # Initialize an empty inventory
+        hero_obj.inventory = []
 
-        # Create a monster object to simulate artifact loot.
         monster_obj = Monster()
-        # For demonstration purposes, override the loot with known artifacts.
         monster_obj.loot = ["Amulet of Power", "Golden Sword", "Minor Ring", "Boots of Speed"]
 
-        print("\nCollecting artifacts from the defeated monster...")
-        new_artifacts = [a for a in monster_obj.loot if a not in hero_obj.inventory]
-        hero_obj.inventory.extend(new_artifacts)
-        print("Artifacts collected:", hero_obj.inventory)
+        print("Collecting artifacts from the defeated monster...")
+        new_artifacts = functions.collect_artifacts(monster_obj, hero_obj)
+        print("Artifacts collected:", new_artifacts)
 
-        if hero_obj.combat_strength > 4:
-            if 'Amulet of Power' in hero_obj.inventory:
-                hero_obj.combat_strength += 2
-                print("Artifact effect applied: Amulet of Power increases combat strength by 2.")
-            elif 'Golden Sword' in hero_obj.inventory:
-                hero_obj.combat_strength += 3
-                print("Artifact effect applied: Golden Sword increases combat strength by 3.")
-        else:
-            if 'Minor Ring' in hero_obj.inventory:
-                hero_obj.health_points += 2
-                print("Artifact effect applied: Minor Ring increases health points by 2.")
-            elif 'Boots of Speed' in hero_obj.inventory:
-                hero_obj.combat_strength += 1
-                print("Artifact effect applied: Boots of Speed increases combat strength by 1.")
-
-        # Update local variables for final display.
+        bonus_from_alchemy = functions.alchemist(hero_obj)
         combat_strength = hero_obj.combat_strength
         health_points = hero_obj.health_points
+        print(f"    |    Alchemist power granted: {bonus_from_alchemy}")
+
     else:
         winner = "Monster"
-        print("You lost the fight with the dragon! Game over.")
+        print("You lost the fight with the dragon!")
         exit()
 
-    # ------------------- FINAL SCORE DISPLAY ---------------------------
+    # --- Save Game ---
     tries = 0
     input_invalid = True
     while input_invalid and tries < 5:
-        print("    |", end="    ")
         hero_name = input("Enter your Hero's name (in two words): ")
         name_parts = hero_name.split()
-        if len(name_parts) != 2:
-            print("    |    Please enter a name with two parts (separated by a space)")
-            tries += 1
-        elif not (name_parts[0].isalpha() and name_parts[1].isalpha()):
-            print("    |    Please enter an alphabetical name")
+        if len(name_parts) != 2 or not all(p.isalpha() for p in name_parts):
+            print("    |    Invalid name. Please use two alphabetic words.")
             tries += 1
         else:
             short_name = name_parts[0][:2] + name_parts[1][:1]
-            print("    |    I'm going to call you " + short_name + " for short")
             input_invalid = False
+            print("    |    I'm going to call you " + short_name + " for short")
 
     if not input_invalid:
         stars_display = "*" * num_stars
         print("    |    Hero " + short_name + " gets <" + stars_display + "> stars")
         functions.save_game(winner, hero_name=short_name, num_stars=num_stars)
-        print("    ------------------------------------------------------------------")
-        print("    |    Game saved")
-        print("    ------------------------------------------------------------------")
-        print("    |    Thank you for playing")
-        print("    ------------------------------------------------------------------")
+        print("    |    Game saved. Thank you for playing.")
