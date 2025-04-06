@@ -52,7 +52,7 @@ dragon_art = r"""
                    (vvv(VVV)(VVV)vvv)
 """
 
-# ASCII arts for the new monsters:
+
 skeleton_art = r"""
                               _.--""-._
   .                         ."         ".
@@ -266,7 +266,7 @@ if not input_invalid:
     input("Press enter to see what's inside and make your choices...")
     loot_options, belt = functions.collect_loot(loot_options, belt)
 
-    # Use Loot (refined version that updates combat strength)
+
     belt, health_points, combat_strength = functions.use_loot(belt, health_points, combat_strength)
     print("    |    Updated combat strength after using items: " + str(combat_strength))
 
@@ -275,34 +275,11 @@ if not input_invalid:
     print("    |    --- You are matched in strength: " + str(combat_strength == m_combat_strength))
     print("    |    --- You have a strong player: " + str((combat_strength + health_points) >= 15))
 
-    # --- Monster's Magic Power ---
-    print("    ------------------------------------------------------------------")
-    print("    |", end="    ")
-    input("Roll for Monster's Magic Power (Press enter)")
-    ascii_image4 = """
-            @%   @                      
-     @     @                        
-         &                          
-  @      .                          
- @       @                    @     
-          @                  @      
-  @         @              @  @     
-   @            ,@@@@@@@     @      
-     @                     @        
-        @               @           
-             @@@@@@@                
-    """
-    print(ascii_image4)
-    power_roll = random.choice(list(monster_powers.keys()))
-    m_combat_strength += min(6, m_combat_strength + monster_powers[power_roll])
-    print("    |    The monster's combat strength is now " + str(m_combat_strength) +
-          " using the " + power_roll + " magic power")
-
     # --- Optional Legendary Quest ---
     if random.random() < 1.0:
         print("\n*** A legendary treasure chest appears! ***")
 
-        # For temporary stats use a simple object.
+
         class TempHero:
             pass
 
@@ -324,9 +301,23 @@ if not input_invalid:
                 print("    |    New lifesteal ability acquired:", temp_hero.lifesteal)
         lifesteal = temp_hero.lifesteal
 
-    # --------------------------------------------------------------------------
-    #  FIRST EXTRA BATTLE: SKELETON KING FIGHT
-    # --------------------------------------------------------------------------
+
+
+# --- Story Introduction ---
+    print("\nWelcome, brave warrior, to the Quest of the Fallen Kingdom!")
+    print("Long ago, the Kingdom of Eldoria thrived in peace and prosperity,")
+    print("until a dark curse fell upon the land. A mysterious force corrupted its guardians,")
+    print("transforming noble protectors into fearsome adversaries.")
+    print("Ancient artifacts scattered throughout the realm hold the key to restoring balance.")
+    print("Your journey will take you through treacherous dungeons, enchanted forests, and crumbling ruins,")
+    print("where you must gather mystical items, master your combat skills, and overcome monstrous foes.")
+    print("Face terrifying enemies such as the cursed Skeleton King and the dreaded Vampire King, Cazador,")
+    print("all while preparing for your final trial: the epic battle against a legendary Dragon whose fury")
+    print("threatens to engulf the entire kingdom in darkness.")
+    print("The fate of Eldoria rests on your shoulders...\n")
+
+# --- Input Phase: Get valid combat strengths ---
+
     print("\n------------------------------------------------------------------")
     print("Suddenly, you step into a dark corridor of crumbling walls and eerie silence.")
     print("In the distance, you hear the echo of rattling bones. Torches flicker as you approach.")
@@ -336,9 +327,8 @@ if not input_invalid:
           "beneath the skeletal visage as it readies for battle...\n")
     print(skeleton_art)
 
-    # Stats for the Skeleton King
-    skeleton_hp = random.randint(6, 15)   # a bit less than the final boss
-    skeleton_cs = random.randint(2, 5)    # moderate combat strength
+    skeleton_hp = random.randint(6, 15)   
+    skeleton_cs = random.randint(2, 5)    
     print("    |    The Armored Skeleton King roars with a Combat Strength of:", skeleton_cs)
     print("    |    Its bones seem to glow with an unholy aura. Health Points:", skeleton_hp)
 
@@ -347,7 +337,7 @@ if not input_invalid:
         input("Roll to see who strikes first against the Skeleton King (Press Enter)")
         attack_roll = random.choice(small_dice_options)
         if attack_roll % 2 != 0:
-            # Hero attacks first
+
             print("    |", end="    ")
             input("You strike (Press enter)")
             skeleton_hp, health_points = functions.hero_attacks(combat_strength, skeleton_hp, lifesteal,
@@ -366,7 +356,7 @@ if not input_invalid:
                 if health_points == 0:
                     num_stars = 1
         else:
-            # Skeleton attacks first
+
             print("    |", end="    ")
             input("The Skeleton King lunges forward! (Press enter)")
             health_points, shield = functions.monster_attacks(skeleton_cs, health_points, shield, 0)
@@ -392,11 +382,9 @@ if not input_invalid:
     else:
         print("\nYou have been defeated by the Armored Skeleton King. Your adventure ends here...")
         winner_skel = "Monster"
-        exit()  # End game
+        exit() 
 
-    # --------------------------------------------------------------------------
-    #  SECOND EXTRA BATTLE: VAMPIRE CAZADOR
-    # --------------------------------------------------------------------------
+
     print("------------------------------------------------------------------")
     print("Moments later, you enter a grand chamber with a massive throne in the center.")
     print("Crimson carpets lie soaked with fresh blood, leading up to the dais.")
@@ -411,7 +399,7 @@ if not input_invalid:
     print("He casts a twisted grin, baring his fangs:\n")
     print("\"Your blood will be a fine vintage. Prepare yourself for my eternal night!\"\n")
 
-    # Stats for Cazador (the Vampire)
+
     vampire_hp = random.randint(8, 18)
     vampire_cs = random.randint(3, 6)
     print("    |    Cazador's Combat Strength:", vampire_cs)
@@ -422,7 +410,7 @@ if not input_invalid:
         input("Roll to see who strikes first against the Vampire (Press Enter)")
         attack_roll = random.choice(small_dice_options)
         if attack_roll % 2 != 0:
-            # Hero first
+
             print("    |", end="    ")
             input("You attack Cazador (Press enter)")
             vampire_hp, health_points = functions.hero_attacks(combat_strength, vampire_hp, lifesteal,
@@ -441,7 +429,7 @@ if not input_invalid:
                 if health_points == 0:
                     num_stars = 1
         else:
-            # Vampire first
+
             print("    |", end="    ")
             input("Cazador rushes forward in a blur! (Press enter)")
             health_points, shield = functions.monster_attacks(vampire_cs, health_points, shield, 0)
@@ -468,11 +456,8 @@ if not input_invalid:
     else:
         print("\nYour lifeblood has been drained by Cazador. The reign of the Vampire King continues...")
         winner_vamp = "Monster"
-        exit()  # End game
+        exit()  
 
-    # --------------------------------------------------------------------------
-    #  ALCHEMIST EVENT
-    # --------------------------------------------------------------------------
     print("------------------------------------------------------------------")
     print("As you catch your breath, a figure steps out from behind the throne's pillar.")
     print("He wears tattered robes stained with strange elixirs, a sorrowful look on his face.\n")
@@ -482,31 +467,22 @@ if not input_invalid:
     print("\"I am but an Alchemist, longing to escape this nightmare. Here, take this gift.\"")
     print("\"May it restore you for the challenges yet to come.\" \n")
 
-    # Heal or buff from the Alchemist
+
     alchemist_heal = random.randint(5, 15)
     old_hp = health_points
     health_points = min(100, health_points + alchemist_heal)
     print(f"The Alchemist hands you a sparkling vial. You drink it, healing {alchemist_heal} HP.")
     print(f"Your health rises from {old_hp} to {health_points}.\n")
 
-    # The alchemist bows, then quietly disappears.
     print("He bows in gratitude and slips away into the shadows...\n")
 
-    # --------------------------------------------------------------------------
-    #  DREAM LEVEL SEQUENCE (already in code)
-    # --------------------------------------------------------------------------
-    print("    ------------------------------------------------------------------")
-    num_dream_lvls = functions.dream_level()
-    if num_dream_lvls != 0:
-        health_points -= 1
-        crazy_level = functions.inception_dream(num_dream_lvls)
-        combat_strength += crazy_level
-        print("    |    Combat strength: " + str(combat_strength))
-        print("    |    Health points: " + str(health_points))
-    print("    |    Number of dream levels: ", num_dream_lvls)
 
-    # ------------------- PRIMARY FIGHT SEQUENCE (DRAGON FIGHT) -------------------
-    print("    ------------------------------------------------------------------")
+    print("As the ashes of Cazador's defeat settle, a mysterious parchment flutters at your feet.")
+    print("The ancient script reveals a prophecy: the true source of darkness lies beyond vampiric tyranny,")
+    print("hidden deep beneath a dormant volcano where a colossal Dragon has awakened.")
+    print("With renewed determination and the mystical artifacts you've gathered,")
+    print("you set forth to confront this fiery menace and restore hope to the kingdom.\n")
+
     print(dragon_art)
     print("    |    You meet the dragon. FIGHT!!")
     while m_health_points > 0 and health_points > 0:
@@ -558,15 +534,15 @@ if not input_invalid:
         winner = "Hero"
         print("\nYou defeated the dragon!")
 
-        # Create a hero object and update its current statistics.
+
         hero_obj = Hero()
         hero_obj.combat_strength = combat_strength
         hero_obj.health_points = health_points
-        hero_obj.inventory = []  # Initialize an empty inventory
+        hero_obj.inventory = []
 
-        # Create a monster object to simulate artifact loot.
+    
         monster_obj = Monster()
-        # For demonstration purposes, override the loot with known artifacts.
+
         monster_obj.loot = ["Amulet of Power", "Golden Sword", "Minor Ring", "Boots of Speed"]
 
         print("\nCollecting artifacts from the defeated monster...")
@@ -589,7 +565,7 @@ if not input_invalid:
                 hero_obj.combat_strength += 1
                 print("Artifact effect applied: Boots of Speed increases combat strength by 1.")
 
-        # Update local variables for final display.
+
         combat_strength = hero_obj.combat_strength
         health_points = hero_obj.health_points
     else:
@@ -597,7 +573,6 @@ if not input_invalid:
         print("You lost the fight with the dragon! Game over.")
         exit()
 
-    # ------------------- FINAL SCORE DISPLAY ---------------------------
     tries = 0
     input_invalid = True
     while input_invalid and tries < 5:
