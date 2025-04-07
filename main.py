@@ -580,7 +580,7 @@ if not input_invalid:
         hero_name = input("Enter your Hero's name (in two words): ")
         name_parts = hero_name.split()
         if len(name_parts) != 2:
-            print("    |    Please enter a name with two parts (separated by a space)")3
+            print("    |    Please enter a name with two parts (separated by a space)")
             tries += 1
         elif not (name_parts[0].isalpha() and name_parts[1].isalpha()):
             print("    |    Please enter an alphabetical name")
