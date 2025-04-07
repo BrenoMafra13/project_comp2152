@@ -172,10 +172,10 @@ if not input_invalid:
         monster_obj.loot = ["Amulet of Power", "Golden Sword", "Minor Ring", "Boots of Speed"]
 
         print("Collecting artifacts from the defeated monster...")
-        new_artifacts = functions.collect_artifacts(monster_obj, hero_obj)
+        new_artifacts = functions.collect_artifacts(hero_obj, monster_obj)
         print("Artifacts collected:", new_artifacts)
 
-        bonus_from_alchemy = functions.alchemist(hero_obj)
+        bonus_from_alchemy = functions.alchemist(belt)
         combat_strength = hero_obj.combat_strength
         health_points = hero_obj.health_points
         print(f"    |    Alchemist power granted: {bonus_from_alchemy}")

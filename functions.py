@@ -269,3 +269,21 @@ def collect_artifacts(hero, monster):
         elif 'Boots of Speed' in hero.inventory:
             hero.combat_strength += 1
             print("Artifact effect: Boots of Speed increases combat strength by 1.")
+
+# ------------------ Legendary quest  ------------------
+
+def legendary_quest(hero):
+    print("\n*** You accept the legendary quest! ***")
+    print("You face a magical challenge...")
+
+    challenge = random.randint(1, 3)
+    if challenge == 1:
+        print("You find the Shield of Light! +5 Shield")
+        hero.shield = getattr(hero, "shield", 0) + 5
+    elif challenge == 2:
+        print("You drink a cursed potion and survive! +10 Health")
+        hero.health_points = min(100, hero.health_points + 10)
+    else:
+        print("You master the Vampiric Blade! Lifesteal unlocked!")
+        hero.lifesteal = 0.3
+    return True

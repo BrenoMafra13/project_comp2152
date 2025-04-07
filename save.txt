@@ -15,3 +15,5 @@ Total monsters killed: 2
 >>>>>>> ca8e40925a479183d484e4eef6d89088cc5a5480
 Hero cab has killed a monster and gained 2 stars.
 Total monsters killed: 2
+Hero CaF has killed a monster and gained 0 stars.
+Total monsters killed: 0
