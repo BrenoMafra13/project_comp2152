@@ -346,7 +346,7 @@ def legendary_quest(hero):
             print("You gain the Vampirism Cape! You now steal half the damage dealt as health.")
         return True
     else:
-        print("You failed the legendary quest challenge. The chest vanishes!")
+        print("You failed the legendary quest challenge :(. The chest vanishes!")
         return False
 
 
