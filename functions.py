@@ -4,14 +4,6 @@ import os
 # ------------------ Loot Functions ------------------
 
 def use_loot(belt, health_points, combat_strength):
-    """
-    Refined loot use: process every item in belt.
-    Health Potion increases HP by 5 (capped at 100).
-    Leather Boots add 3 shield (implemented here as a health bump).
-    Poison Potion decreases HP by 3.
-    Secret Note increases combat strength by 2.
-    Any other item is ineffective.
-    """
     print("    |    !!You see a monster in the distance! So you quickly use your items:")
     while belt:
         item_used = belt.pop(0)
@@ -35,10 +27,6 @@ def use_loot(belt, health_points, combat_strength):
     return belt, health_points, combat_strength
 
 def collect_loot(loot_options, belt):
-    """
-    Presents an ASCII art loot bag and then randomly selects four items.
-    Items are paired and the user chooses one from each pair.
-    """
     ascii_image3 = """
                       @@@ @@                
              *# ,        @              
@@ -75,14 +63,6 @@ def collect_loot(loot_options, belt):
 # ------------------ Attack Functions ------------------
 
 def hero_attacks(combat_strength, m_health_points, lifesteal=0, hero_health=0):
-    """
-    Hero's attack includes a lifesteal effect.
-    Damage is a random integer up to combat_strength.
-    If damage is enough to kill the monster, its health becomes 0.
-    Otherwise, the monster loses a fixed amount (combat_strength).
-    If lifesteal is active, hero heals for damage * lifesteal.
-    Returns updated monster health and hero health.
-    """
     ascii_image = """
                                 @@   @@ 
                                 @    @  
@@ -118,12 +98,6 @@ def hero_attacks(combat_strength, m_health_points, lifesteal=0, hero_health=0):
     return m_health_points, hero_health
 
 def monster_attacks(m_combat_strength, hero_health, hero_shield=0, shield_regen=0):
-    """
-    Monster's attack function with shield mechanics.
-    Displays a dragon sprite, calculates damage and allows shield to absorb some damage.
-    After the attack, the shield regenerates by shield_regen points.
-    Returns updated hero health and shield.
-    """
     dragon_art = r"""
                            /           /
                   ___====-_  _-====___
@@ -266,8 +240,8 @@ def alchemist(belt):
         fusion_result = "Shadow Brew"
         print("Fusion successful! You created a Shadow Brew (+3 Combat Strength)")
     else:
-        fusion_result = "Mysterious Fragment"
-        print("The fusion created a Mysterious Fragment... it seems useless.")
+        print("You failed the legendary quest challenge :(. The chest vanishes!")
+        return False
 
     belt.append(fusion_result)
     print("Updated belt:", belt)

@@ -203,4 +203,8 @@ if not input_invalid:
         stars_display = "*" * num_stars
         print("    |    Hero " + short_name + " gets <" + stars_display + "> stars")
         functions.save_game(winner, hero_name=short_name, num_stars=num_stars)
-        print("    |    Game saved. Thank you for playing.")
+        print("    -------------------------------------------------------------------")
+        print("    |    Game saved")
+        print("    -------------------------------------------------------------------")
+        print("    |    Thank you for playing")
+        print("    -------------------------------------------------------------------")
