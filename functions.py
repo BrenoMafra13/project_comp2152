@@ -4,6 +4,14 @@ import os
 # ------------------ Loot Functions ------------------
 
 def use_loot(belt, health_points, combat_strength):
+    """
+    Refined loot use: process every item in belt.
+    Health Potion increases HP by 5 (capped at 100).
+    Leather Boots add 3 shield (implemented here as a health bump).
+    Poison Potion decreases HP by 3.
+    Secret Note increases combat strength by 2.
+    Any other item is ineffective.
+    """
     print("    |    !!You see a monster in the distance! So you quickly use your items:")
     while belt:
         item_used = belt.pop(0)
@@ -27,6 +35,10 @@ def use_loot(belt, health_points, combat_strength):
     return belt, health_points, combat_strength
 
 def collect_loot(loot_options, belt):
+    """
+    Presents an ASCII art loot bag and then randomly selects four items.
+    Items are paired and the user chooses one from each pair.
+    """
     ascii_image3 = """
                       @@@ @@                
              *# ,        @              
@@ -63,6 +75,14 @@ def collect_loot(loot_options, belt):
 # ------------------ Attack Functions ------------------
 
 def hero_attacks(combat_strength, m_health_points, lifesteal=0, hero_health=0):
+    """
+    Hero's attack includes a lifesteal effect.
+    Damage is a random integer up to combat_strength.
+    If damage is enough to kill the monster, its health becomes 0.
+    Otherwise, the monster loses a fixed amount (combat_strength).
+    If lifesteal is active, hero heals for damage * lifesteal.
+    Returns updated monster health and hero health.
+    """
     ascii_image = """
                                 @@   @@ 
                                 @    @  
@@ -98,28 +118,16 @@ def hero_attacks(combat_strength, m_health_points, lifesteal=0, hero_health=0):
     return m_health_points, hero_health
 
 def monster_attacks(m_combat_strength, hero_health, hero_shield=0, shield_regen=0):
-    dragon_art = r"""
-                           /           /
-                  ___====-_  _-====___
-            _--^^^#####//      \\#####^^^--_
-         _-^##########// (    ) \\##########^-_
-        -############//  |\^^/|  \\############-
-      _/############//   (@::@)   \\############\_
-     /#############((     \\//     ))#############\
-    -###############\\    (oo)    //###############-
-   -#################\\  / "" \  //#################-
-  -###################\\/  (_)  \//###################-
- _#/|##########/\######(   "/"   )######/\##########|\#_
- |/ |#/\#/\#/\/  \#/\##\  ! ' !  /##/\#/  \/\#/\#/\| \|
- '  |/  V  V '   V  \\#\  \   /  /#/  V   '  V  V  \|  '
-    '   '  '      '   /#\  | |  /#\   '      '  '   '
-                     (  (  | |  )  )
-                    __\  \ | | /  /__
-                   (vvv(VVV)(VVV)vvv)
     """
-    print(dragon_art)
+    Monster's attack function with shield mechanics.
+    Displays a dragon sprite, calculates damage and allows shield to absorb some damage.
+    After the attack, the shield regenerates by shield_regen points.
+    Returns updated hero health and shield.
+    """
+
     damage = random.randint(1, m_combat_strength)
     print("    |    Monster's attack damage: " + str(damage))
+    # Apply shield absorption if available.
     if hero_shield > 0:
         if damage <= hero_shield:
             print("    |    Your shield absorbed all " + str(damage) + " damage.")
@@ -206,84 +214,118 @@ def dream_level():
         except ValueError:
             print("Enter a valid integer.")
 
-# ------------------ Alchemist ------------------
-
-def alchemist(belt):
-    print("\n*** You encounter a mysterious Alchemist! ***")
-    if len(belt) < 2:
-        print("The Alchemist needs at least two items to work with. He vanishes in disappointment.")
-        return belt
-
-    print(f"Your current belt: {belt}")
-    print("He offers to fuse two of your items into something special...")
-
-    for i, item in enumerate(belt):
-        print(f"{i + 1}. {item}")
-
-    try:
-        idx1 = int(input("Choose the number of the first item to fuse: ")) - 1
-        idx2 = int(input("Choose the number of the second item to fuse: ")) - 1
-        if idx1 == idx2 or idx1 not in range(len(belt)) or idx2 not in range(len(belt)):
-            print("Invalid selection. The Alchemist leaves.")
-            return belt
-    except ValueError:
-        print("Invalid input. The Alchemist leaves.")
-        return belt
-
-    item1 = belt.pop(max(idx1, idx2))
-    item2 = belt.pop(min(idx1, idx2))
-
-    if (item1 == "Health Potion" and item2 == "Leather Boots") or (item2 == "Health Potion" and item1 == "Leather Boots"):
-        fusion_result = "Elixir of Fortitude"
-        print("Fusion successful! You created an Elixir of Fortitude (+7 HP)")
-    elif (item1 == "Poison Potion" and item2 == "Secret Note") or (item2 == "Poison Potion" and item1 == "Secret Note"):
-        fusion_result = "Shadow Brew"
-        print("Fusion successful! You created a Shadow Brew (+3 Combat Strength)")
-    else:
-        print("You failed the legendary quest challenge :(. The chest vanishes!")
-        return False
-
-    belt.append(fusion_result)
-    print("Updated belt:", belt)
-    return belt
-
-# ------------------ Artifact Collection ------------------
-
-def collect_artifacts(hero, monster):
-    print("\nCollecting artifacts from the defeated monster...")
-    new_artifacts = [a for a in monster.loot if a not in hero.inventory]
-    hero.inventory.extend(new_artifacts)
-    print("Artifacts collected:", hero.inventory)
-
-    if hero.combat_strength > 4:
-        if 'Amulet of Power' in hero.inventory:
-            hero.combat_strength += 2
-            print("Artifact effect: Amulet of Power increases combat strength by 2.")
-        elif 'Golden Sword' in hero.inventory:
-            hero.combat_strength += 3
-            print("Artifact effect: Golden Sword increases combat strength by 3.")
-    else:
-        if 'Minor Ring' in hero.inventory:
-            hero.health_points += 2
-            print("Artifact effect: Minor Ring increases health points by 2.")
-        elif 'Boots of Speed' in hero.inventory:
-            hero.combat_strength += 1
-            print("Artifact effect: Boots of Speed increases combat strength by 1.")
-
-# ------------------ Legendary quest  ------------------
+# ------------------ Legendary Quest ------------------
 
 def legendary_quest(hero):
-    print("\n*** You accept the legendary quest! ***")
-    print("You face a magical challenge...")
-
-    challenge = random.randint(1, 3)
-    if challenge == 1:
-        print("You find the Shield of Light! +5 Shield")
-        hero.shield = getattr(hero, "shield", 0) + 5
-    elif challenge == 2:
-        print("You drink a cursed potion and survive! +10 Health")
-        hero.health_points = min(100, hero.health_points + 10)
+    print("\n*** Legendary Quest Triggered! ***")
+    chest_art = r"""
+           __________
+          /\____;;___\
+         | /         /
+         `. ())oo() .
+         |\(%()*^^()^\
+        %| |-%-------|
+       % \ | %  ))   |
+       %  \|%________|
+        %%%%
+    """
+    print(chest_art)
+    challenge_result = random.randint(1, 10)
+    print("You roll the challenge dice... Result:", challenge_result)
+    if challenge_result >= 3:
+        print("You have overcome the challenge and unlocked the legendary chest!")
+        legendary_items = [
+            {"name": "Relic of Power", "type": "buff", "effect": "Increase combat strength by 10", "bonus": 10, "art": r"""
+                __________
+               '._==_==_=_.' 
+               .-\:      /-. 
+              | (|:.     |) | 
+               '-|:.     |-'  
+                 \::.    /   
+                  '::. .'
+                    ) (
+                  _.' '._ 
+                 `"""""""` 
+            """},
+            {"name": "Excalibur", "type": "weapon", "effect": "Equip to gain +10 to combat and health", "bonus": 10, "art": r"""
+                 _
+                (_)
+                |=|
+                |=|
+            /|__|_|__|\
+           (    ( )    )
+            \|\/\"/\/|/
+              |  Y  |
+              |  |  |
+              |  |  |
+             _|  |  |
+          __/ |  |  |\
+         /  \ |  |  |  \
+        __|  |  |  |   |
+      /\/  |  |  |   |\
+       <   +\ | |\ />  \
+        >   + \  | LJ    |
+              + \|+  \  < \
+        (O)      +    |    )
+         |             \  /\ 
+       ( | )   (o)      \/  )
+      _\\|//__( | )______)_/ 
+              \\|// 
+            """},
+            {"name": "Mystic Amulet", "type": "shield", "effect": "Provides shield regeneration of 4 per turn", "bonus": 4, "art": r"""
+                o--o--=g=--o--o
+               /      .'       \
+               o      '.       o
+                \             /
+                 o           o
+                  \         /
+                   o       o
+                    \     /
+                     o   o
+                      \_/
+                       =
+                      .^.
+                     '   '
+                     '. .'
+                       !
+            """},
+            {"name": "Vampirism Cape", "type": "lifesteal", "effect": "Gain 50% of damage dealt as HP", "bonus": 0.5, "art": r"""
+             ,*-~\"`^\"*u_                                _u*\"^`\"~-*,
+          p!^       /  jPw                            w9j \        ^!p
+        w^.._      /      \_                      _/\"     \        _.^w
+             *_   /          \_      _    _      _/         \     _* 
+               q /           / \q   ( `--` )   p/ \          \   p
+               jj5****._    /    ^\_) o  o (_/^    \    _.****6jj
+                        *_ /      \"==) ;; (==\"      \ _*
+                         `/.w***,   /(    )\   ,***w.\" 
+                          ^ ilmk ^c/ )    ( \c^      ^ 
+                                  'V')_)(_('V'
+                                      `` ``
+            """}
+        ]
+        reward = random.choice(legendary_items)
+        print(f"You have found the {reward['name']}! {reward['effect']}")
+        print(reward["art"])
+        if reward["name"] == "Excalibur":
+            decision = input("Do you want to equip Excalibur? (y/n): ")
+            if decision.lower() == "y":
+                hero.combat_strength += reward["bonus"]
+                hero.health_points += reward["bonus"]
+                hero.weapon = "Excalibur"
+                print("Excalibur equipped! Your combat and health points increased by 10 each.")
+            else:
+                print("You leave Excalibur behind.")
+        elif reward["name"] == "Relic of Power":
+            hero.combat_strength += reward["bonus"]
+            hero.relic = True
+            print(f"Your combat strength increases by {reward['bonus']}.")
+        elif reward["name"] == "Mystic Amulet":
+            hero.shield = reward["bonus"]
+            print("You gain the Mystic Amulet! You now regenerate 4 shield points each turn.")
+        elif reward["name"] == "Vampirism Cape":
+            hero.lifesteal = reward["bonus"]
+            print("You gain the Vampirism Cape! You now steal half the damage dealt as health.")
+        return True
     else:
-        print("You master the Vampiric Blade! Lifesteal unlocked!")
-        hero.lifesteal = 0.3
-    return True
+        print("You failed the legendary quest challenge. The chest vanishes!")
+        return False
